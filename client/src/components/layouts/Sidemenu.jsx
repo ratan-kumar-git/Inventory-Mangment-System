@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, LayoutDashboard, LogIn, LogOut, Package, User, UserPlus } from "lucide-react";
+import { Home, LayoutDashboard, LogIn, Package, PackagePlus, User, UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 
@@ -7,6 +7,7 @@ const menuItems = [
   { name: "Home", path: "/", icon: Home }, 
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { name: "Products", path: "/products", icon: Package },
+  { name: "Add Product", path: "/add-product", icon: PackagePlus },
   { name: "Users", path: "/users", icon: User },
 ];
 
@@ -19,14 +20,14 @@ const Sidemenu = ({ activeMenu }) => {
   };
 
   return (
-    <aside className="w-64 h-[calc(100vh-61px)] bg-white border-r border-gray-200 shadow-sm sticky top-[61px] z-20">
+    <aside className="w-64 h-[calc(100vh-64.8px)] bg-white border-r border-gray-200 shadow-sm sticky top-[64.8px] z-20">
       <div className="flex flex-col p-4">
         {authUser ? (
           menuItems.map((item) => (
             <button
               key={item.name}
               onClick={() => handleClick(item.path)}
-              className={`w-full flex items-center gap-3 text-[15px] font-medium py-3 px-5 mb-4 rounded-lg transition-all duration-200
+              className={`w-full flex items-center gap-3 text-base font-semibold py-3 px-5 mb-4 rounded-lg transition-all duration-200
                 ${
                   activeMenu === item.path
                     ? "text-blue-600 bg-blue-50 border border-blue-200 shadow-sm"

@@ -49,7 +49,7 @@ const Navbar = ({ activeMenu }) => {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2 no-underline text-xl font-bold px-3 py-1 text-gray-800 hover:opacity-85"
+          className="flex items-center justify-center gap-2 no-underline text-xl font-bold px-3 text-gray-800 hover:opacity-85"
         >
           <img src={logo} alt="logo" className="w-10 h-10" />
           IM System
@@ -61,7 +61,7 @@ const Navbar = ({ activeMenu }) => {
       ) : (
         <Link
           to="/signup"
-          className="no-underline text-base px-3 py-1.5 rounded-lg bg-emerald-500 text-white shadow-sm"
+          className="no-underline text-base px-3 py-1.5 rounded-lg bg-emerald-500  text-white shadow-sm"
         >
           Get Satarted
         </Link>
@@ -71,7 +71,7 @@ const Navbar = ({ activeMenu }) => {
       {openSideMenu && (
         <div
           ref={sideMenuRef}
-          className="fixed top-[61px] left-0 w-64 h-[calc(100vh-61px)] bg-white shadow-md z-40"
+          className="fixed top-[64.8px] left-0 w-64 h-[calc(100vh-64.8px)] bg-white shadow-md z-40"
         >
           <Sidemenu activeMenu={activeMenu} />
         </div>

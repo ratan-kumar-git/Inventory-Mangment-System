@@ -87,7 +87,7 @@ export const updateProduct = async (req, res) => {
 
     await product.save();
 
-    res.status(200).json(product);
+    res.status(200).json({ product });
   } catch (error) {
     console.log("Error in updateProduct controller: ", error.message);
     res.status(500).json({ message: "Internal Server Error" });

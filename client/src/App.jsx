@@ -9,6 +9,9 @@ import Login from "./page/Login";
 import Home from "./page/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStore } from "./store/useAuthStore";
+import AddProduct from "./page/AddProduct";
+import PageNotFound from "./page/PageNotFound";
+import { Loader } from "lucide-react";
 
 
 const App = () => {
@@ -19,7 +22,12 @@ const App = () => {
   }, [checkAuth]);
 
   if (isCheckingAuth) {
-    return <p className="text-center mt-10">Checking authentication...</p>;
+    return (
+      <div className="w-full h-screen flex justify-center items-center gap-2 bg-gray-50">
+        <Loader className="size-10 animate-spin"/>
+        <p className="text-lg">Checking authentication...</p>
+      </div>
+    )
   }
 
   return (
@@ -56,6 +64,14 @@ const App = () => {
             }
           />
           <Route
+            path="/add-product"
+            element={
+              <ProtectedRoute>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/users"
             element={
               <ProtectedRoute>
@@ -63,6 +79,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

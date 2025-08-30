@@ -1,12 +1,13 @@
 import React from "react";
 import DashboardLayout from "../components/layouts/DashboardLayout";
+import HeroSection from "../components/HeroSection";
 
 const Home = () => {
   return (
     <>
     <DashboardLayout activeMenu="/" >
       <div className="flex-1 w-full ">
-        <h1>Ratan Hpme </h1>
+        <HeroSection />
       </div>
     </DashboardLayout>
     </>
