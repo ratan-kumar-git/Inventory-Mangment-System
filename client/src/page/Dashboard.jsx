@@ -1,14 +1,11 @@
-import React from 'react'
-import DashboardLayout from '../components/layouts/DashboardLayout'
+import React from "react";
 
 const Dashboard = () => {
   return (
-    <DashboardLayout activeMenu="/dashboard" >
-      <div className="flex-1 w-full ">
-        <h1>Ratan </h1>
-      </div>
-    </DashboardLayout>
-  )
-}
+    <div className="flex-1 w-full ">
+      <h1>Ratan </h1>
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

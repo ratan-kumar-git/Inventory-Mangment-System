@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import Sidemenu from "./Sidemenu";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import Sidemenu from "./Sidemenu";
 import Profile from "../profile";
 import logo from "../../assets/logo.webp";
 import { useAuthStore } from "../../store/useAuthStore";
 
-const Navbar = ({ activeMenu }) => {
+const Navbar = () => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   const sideMenuRef = useRef(null);
   const { authUser } = useAuthStore();
@@ -73,7 +73,7 @@ const Navbar = ({ activeMenu }) => {
           ref={sideMenuRef}
           className="fixed top-[64.8px] left-0 w-64 h-[calc(100vh-64.8px)] bg-white shadow-md z-40"
         >
-          <Sidemenu activeMenu={activeMenu} />
+          <Sidemenu onClose={() => setOpenSideMenu(false)} />
         </div>
       )}
     </nav>

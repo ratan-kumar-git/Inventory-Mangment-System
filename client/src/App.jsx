@@ -7,12 +7,12 @@ import Products from "./page/Products";
 import Signup from "./page/Signup";
 import Login from "./page/Login";
 import Home from "./page/Home";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/layouts/ProtectedRoute";
 import { useAuthStore } from "./store/useAuthStore";
 import AddProduct from "./page/AddProduct";
 import PageNotFound from "./page/PageNotFound";
 import { Loader } from "lucide-react";
-
+import Layout from "./components/layouts/Layout";
 
 const App = () => {
   const { authUser, isCheckingAuth, checkAuth } = useAuthStore();
@@ -24,61 +24,62 @@ const App = () => {
   if (isCheckingAuth) {
     return (
       <div className="w-full h-screen flex justify-center items-center gap-2 bg-gray-50">
-        <Loader className="size-10 animate-spin"/>
+        <Loader className="size-10 animate-spin" />
         <p className="text-lg">Checking authentication...</p>
       </div>
-    )
+    );
   }
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {/* auth */}
+          {/* Public routes */}
           <Route
             path="/signup"
-            element={!authUser ? <Signup /> : <Navigate to="/dashboard" />}
+            element={authUser ? <Navigate to="/dashboard" /> : <Signup />}
           />
           <Route
             path="/login"
-            element={!authUser ? <Login /> : <Navigate to="/dashboard" />}
+            element={authUser ? <Navigate to="/dashboard" /> : <Login />}
           />
 
-          <Route path="/" element={<Home />} />
-
-          {/* protected */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/products"
-            element={
-              <ProtectedRoute>
-                <Products />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-product"
-            element={
-              <ProtectedRoute>
-                <AddProduct />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/users"
-            element={
-              <ProtectedRoute>
-                <Users />
-              </ProtectedRoute>
-            }
-          />
+          {/* Protected routes with layout */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="products"
+              element={
+                <ProtectedRoute>
+                  <Products />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="add-product"
+              element={
+                <ProtectedRoute>
+                  <AddProduct />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="users"
+              element={
+                <ProtectedRoute>
+                  <Users />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
