@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Plus, X } from "lucide-react";
+import toast from "react-hot-toast";
+import dayjs from 'dayjs';
 import { useProductStore } from "../store/useProductStore";
 import { useBillingStore } from "../store/useBillingStore";
-import toast from "react-hot-toast";
+
 
 const Billing = () => {
   const [search, setSearch] = useState("");
@@ -194,7 +196,7 @@ const Billing = () => {
 
         {/* Date */}
         <div className="text-right mb-4 text-sm text-gray-600">
-          Date: {date}
+          Date: {dayjs(new Date()).format("DD MMM YYYY")}
         </div>
 
         {/* Add Product Button */}

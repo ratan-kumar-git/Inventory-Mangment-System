@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProductStore } from "../store/useProductStore";
 import ContentLoader from "../components/layouts/ContentLoader";
-import { Pencil, Trash2, X } from "lucide-react";
+import { Circle, Pencil, Trash2, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Products = () => {
@@ -29,9 +29,7 @@ const Products = () => {
 
   // loader animation
   if (isProductLoading) {
-    return (
-      <ContentLoader message="Products Loading..." />
-    );
+    return <ContentLoader message="Products Loading..." />;
   }
 
   const handleClick = (p) => {
@@ -98,8 +96,8 @@ const Products = () => {
               <th className="px-4 py-3">Buy Price</th>
               <th className="px-4 py-3">Sell Price</th>
               <th className="px-4 py-3">MRP</th>
-              <th className="px-4 py-3">Stock</th>
-              <th className="px-4 py-3">Stock indicator</th>
+              <th className="px-4 py-3">Qty</th>
+              <th className="px-4 py-3">Min Qty</th>
               <th className="px-4 py-3">Unit</th>
               <th className="px-4 py-3">Edit</th>
               <th className="px-4 py-3">Delete</th>
@@ -117,7 +115,18 @@ const Products = () => {
                 <td className="px-4 py-3">{p.buyPrice}</td>
                 <td className="px-4 py-3">{p.sellPrice}</td>
                 <td className="px-4 py-3">{p.mrp}</td>
-                <td className="px-4 py-3">{p.stock}</td>
+                <td className="px-4 py-3">
+                  <div className="flex gap-2 items-center">
+                    <Circle
+                      className={`h-4 w-4 rounded-full ${
+                        p.stock >= p.lowStockLimit
+                          ? "bg-green-500 text-green-500"
+                          : "bg-red-500 text-red-500"
+                      }`}
+                    />
+                    {p.stock}
+                  </div>
+                </td>
                 <td className="px-4 py-3">{p.lowStockLimit}</td>
                 <td className="px-4 py-3">{p.unit}</td>
                 <td className="px-4 py-3">
