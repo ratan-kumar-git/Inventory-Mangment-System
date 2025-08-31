@@ -15,6 +15,6 @@ router.post("/", protectRoute, adminOnly, createProduct);
 router.get("/", protectRoute, getProducts);
 router.get("/:id", protectRoute, getProductById);
 router.put("/:id", protectRoute, updateProduct);
-router.put("/delete/:id", protectRoute, adminOnly, deleteProduct);
+router.delete("/:id", protectRoute, adminOnly, deleteProduct);
 
 export default router;

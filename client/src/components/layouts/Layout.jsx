@@ -14,7 +14,7 @@ const Layout = () => {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 p-5 sm:p-10 overflow-y-auto overflow-x-auto"><Outlet /></main>
+        <main className="flex-1 p-5 overflow-y-auto overflow-x-auto"><Outlet /></main>
       </div>
     </div>
   );

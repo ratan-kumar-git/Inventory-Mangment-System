@@ -45,7 +45,7 @@ export const createProduct = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find({ shop: req.shop?._id, status: "active" });
+    const products = await Product.find({ shop: req.shop?._id });
     res.status(200).json(products);
   } catch (error) {
     console.log("Error in getProducts controller: ", error.message);
@@ -95,15 +95,12 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findOne({
+    const product = await Product.findOneAndDelete({
       _id: req.params.id,
       shop: req.shop?._id,
     });
     if (!product) return res.status(404).json({ message: "Product not found" });
-
-    product.status = 'inactive'
-    await product.save();
-    res.status(200).json(product);
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log("Error in getProductById controller: ", error.message);
     res.status(500).json({ message: "Internal Server Error" });

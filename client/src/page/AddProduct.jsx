@@ -60,7 +60,7 @@ const AddProduct = () => {
     <div className="flex-1 w-full ">
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-white shadow-md p-6 rounded-lg max-w-lg mx-auto"
+        className="space-y-4 bg-white shadow-md p-6 rounded-lg mx-auto"
       >
         <h2 className="text-xl font-semibold mb-4">
           {formData._id ? "Edit Product" : "Add Product"}

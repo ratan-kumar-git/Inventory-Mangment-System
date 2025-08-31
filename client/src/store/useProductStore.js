@@ -60,7 +60,7 @@ export const useProductStore = create((set, get) => ({
   deleteProduct: async (productID) => {
     set({ isProductDelete: true });
     try {
-      const res = await axiosInstance.put(`/api/products/delete/${productID}`);
+      const res = await axiosInstance.delete(`/api/products/${productID}`);
       await get().getProduct();
       toast.success("Product deleted successfully");
     } catch (error) {

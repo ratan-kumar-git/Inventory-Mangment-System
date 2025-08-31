@@ -14,9 +14,6 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, default: 0, min: 0 },
     unit: { type: String, enum: ["pcs", "kg", "litre", "box", "packet"], default: "pcs" },
     lowStockLimit: { type: Number, default: 5, min: 0 },
-
-    // status
-    status: { type: String, enum: ["active", "inactive"], default: "active" },
   },
   { timestamps: true }
 );
