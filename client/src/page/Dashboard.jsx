@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AlertTriangle, Package, ShoppingCart, TrendingUp } from "lucide-react";
+import ContentLoader from "../components/layouts/ContentLoader";
+import { useDashboardStore } from "../store/useDashboardStore";
 
 const Dashboard = () => {
+  const { stats, getDashboard, loading } = useDashboardStore();
+
+  useEffect(() => {
+    getDashboard();
+  }, [getDashboard]);
+
+  if (loading) return <ContentLoader message="Dashboard data loading..." />
+
+
   return (
     <div className="flex-1 w-full bg-gray-50 min-h-screen">
       {/* Header */}
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         Inventory Dashboard
       </h1>
 
@@ -15,28 +26,29 @@ const Dashboard = () => {
           <Package className="text-blue-600 w-10 h-10" />
           <div>
             <p className="text-sm text-gray-500">Total Products</p>
-            <h2 className="text-2xl font-bold text-gray-800">320</h2>
+            <h2 className="text-2xl font-bold text-gray-800">{stats.totalProducts}</h2>
           </div>
         </div>
         <div className="bg-white shadow-md rounded-2xl p-5 flex items-center gap-4">
           <ShoppingCart className="text-green-600 w-10 h-10" />
           <div>
             <p className="text-sm text-gray-500">Total Sales</p>
-            <h2 className="text-2xl font-bold text-gray-800">₹ 1,25,000</h2>
+            <h2 className="text-2xl font-bold text-gray-800">₹{stats.totalSales}</h2>
           </div>
         </div>
+        {/* Today's Sales */}
         <div className="bg-white shadow-md rounded-2xl p-5 flex items-center gap-4">
           <TrendingUp className="text-purple-600 w-10 h-10" />
           <div>
-            <p className="text-sm text-gray-500">Monthly Growth</p>
-            <h2 className="text-2xl font-bold text-gray-800">+15%</h2>
+            <p className="text-sm text-gray-500">Today's Sales</p>
+            <h2 className="text-2xl font-bold text-gray-800">₹{stats.todaySales}</h2>
           </div>
         </div>
         <div className="bg-white shadow-md rounded-2xl p-5 flex items-center gap-4">
           <AlertTriangle className="text-red-600 w-10 h-10" />
           <div>
             <p className="text-sm text-gray-500">Low Stock Items</p>
-            <h2 className="text-2xl font-bold text-gray-800">12</h2>
+            <h2 className="text-2xl font-bold text-gray-800">{stats.lowStockCount}</h2>
           </div>
         </div>
       </div>

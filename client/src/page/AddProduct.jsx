@@ -58,6 +58,10 @@ const AddProduct = () => {
   };
   return (
     <div className="flex-1 w-full ">
+      {/* Header */}
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+        {formData._id ? "Edit Product" : "Add Product"}
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 bg-white shadow-md p-6 rounded-lg mx-auto"
@@ -160,7 +164,7 @@ const AddProduct = () => {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-red-500 to-yellow-400 text-white py-2 px-4 rounded-lg font-medium hover:opacity-90"
+          className="py-2 px-4 w-full bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700"
         >
           {isCreateProduct ? (
             <>
@@ -171,7 +175,7 @@ const AddProduct = () => {
           ) : formData._id ? (
             "Update Product"
           ) : (
-            "Save Product"
+            "Add Product"
           )}
         </button>
       </form>

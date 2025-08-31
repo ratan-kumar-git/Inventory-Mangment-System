@@ -25,7 +25,10 @@ const BillingHistory = () => {
 
   return (
     <div className="flex-1 w-full">
-      <h1 className="text-2xl font-semibold mb-4">Billing History</h1>
+      {/* Header */}
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+        Billing History
+      </h1>
 
       {bills.length === 0 ? (
         <p className="text-gray-500">No bills found.</p>

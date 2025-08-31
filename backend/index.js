@@ -5,6 +5,7 @@ import cors from "cors";
 // import files
 import { connectDB } from './src/config/db.js';
 import authRoute from './src/routes/authRoute.js';
+import dashboardRoute from './src/routes/dashboardRoute.js';
 import productRoutes from './src/routes/productRoutes.js';
 import billingRoutes from './src/routes/billingRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
@@ -25,6 +26,7 @@ app.use(express.json())
 
 // routes middlwaer + routes
 app.use('/api/auth', authRoute) //done
+app.use('/api/dashboard', dashboardRoute) //done
 app.use('/api/products', productRoutes) //done
 app.use('/api/billing', billingRoutes) //done
 app.use('/api/users', userRoutes) //done

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Plus, X } from "lucide-react";
+import { Loader, Plus, X } from "lucide-react";
 import toast from "react-hot-toast";
 import dayjs from 'dayjs';
 import { useProductStore } from "../store/useProductStore";
@@ -10,7 +10,7 @@ const Billing = () => {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const { getProduct, products } = useProductStore();
-  const { createBill } = useBillingStore();
+  const { createBill, isCreateBill } = useBillingStore();
 
   const [formData, setFormData] = useState({
     customer: {
@@ -140,7 +140,11 @@ const Billing = () => {
   };
 
   return (
-    <div className="flex-1 w-full min-h-screen bg-gray-100 text-gray-800">
+    <div className="flex-1 w-full min-h-screen bg-gray-50">
+      {/* Header */}
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+        Billing
+      </h1>
       <div className="bg-white rounded-2xl shadow-md p-6 mx-auto">
         {/* Header */}
         <h1 className="text-center text-xl font-bold mb-6">Billing</h1>
@@ -274,7 +278,13 @@ const Billing = () => {
           onClick={handleSubmit}
           className="mt-6 w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700"
         >
-          Create Bill
+          { isCreateBill ? (
+            <>
+              <div className="flex items-center justify-center gap-2">
+                <Loader className="animate-spin h-5 w-5" /> Creating bill...
+              </div>
+            </>
+          ) : "Create Bill"}
         </button>
       </div>
 
