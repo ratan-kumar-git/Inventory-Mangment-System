@@ -1,19 +1,15 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 
-const ProtectedRoute = ({children}) => {
-  const { authUser, isCheckingAuth } = useAuthStore();
+const ProtectedRoute = () => {
+  const { authUser } = useAuthStore();
+  const location = useLocation();
 
-    if (isCheckingAuth) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center gap-2 bg-gray-50">
-        <Loader className="size-10 animate-spin" />
-        <p className="text-lg">Checking authentication...</p>
-      </div>
-    );
-  }
+  // If no authenticated user, redirect to login page
+  if (!authUser) return <Navigate to="/login" replace state={{ from: location }}/>
 
-  return authUser ? children : <Navigate to="/login" />;
+  //  allow authenticated user
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

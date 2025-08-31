@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Loader } from "lucide-react";
 import Dashboard from "./page/Dashboard";
 import Users from "./page/Users";
 import Products from "./page/Products";
@@ -8,14 +9,15 @@ import Signup from "./page/Signup";
 import Login from "./page/Login";
 import Home from "./page/Home";
 import ProtectedRoute from "./components/layouts/ProtectedRoute";
-import { useAuthStore } from "./store/useAuthStore";
 import AddProduct from "./page/AddProduct";
 import PageNotFound from "./page/PageNotFound";
-import { Loader } from "lucide-react";
+import { useAuthStore } from "./store/useAuthStore";
+
 import Layout from "./components/layouts/Layout";
+import GuestRoute from "./components/layouts/GuestRoute";
 
 const App = () => {
-  const { authUser, isCheckingAuth, checkAuth } = useAuthStore();
+  const { isCheckingAuth, checkAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
@@ -34,52 +36,26 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          {/* Public routes */}
-          <Route
-            path="/signup"
-            element={authUser ? <Navigate to="/dashboard" /> : <Signup />}
-          />
-          <Route
-            path="/login"
-            element={authUser ? <Navigate to="/dashboard" /> : <Login />}
-          />
+          {/* Guest-only routes */}
+          <Route element={<GuestRoute />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
 
-          {/* Protected routes with layout */}
+          {/* Layout */}
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route
-              path="dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="products"
-              element={
-                <ProtectedRoute>
-                  <Products />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="add-product"
-              element={
-                <ProtectedRoute>
-                  <AddProduct />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="users"
-              element={
-                <ProtectedRoute>
-                  <Users />
-                </ProtectedRoute>
-              }
-            />
+
+            {/* Protected  */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="products" element={<Products />} />
+              <Route path="add-product" element={<AddProduct />} />
+              <Route path="users" element={<Users />} />
+            </Route>
           </Route>
+
+          {/* 404 */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
