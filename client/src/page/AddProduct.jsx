@@ -11,8 +11,6 @@ const AddProduct = () => {
   const [formData, setFormData] = useState(
     editProduct || {
       productName: "",
-      category: "",
-      supplier: "",
       buyPrice: "",
       sellPrice: "",
       mrp: "",
@@ -27,7 +25,6 @@ const AddProduct = () => {
   const validateForm = () => {
     if (!formData.productName.trim())
       return toast.error("Product name is required");
-    // if (!formData.supplier.trim()) return toast.error("Supplier is required");
     if (!formData.buyPrice) return toast.error("Buy Price is required");
     if (!formData.sellPrice) return toast.error("Sell Price is required");
     if (!formData.mrp) return toast.error("MRP is required");
@@ -50,8 +47,6 @@ const AddProduct = () => {
       }
       setFormData({
         productName: "",
-        category: "",
-        supplier: "",
         buyPrice: "",
         sellPrice: "",
         mrp: "",
@@ -71,6 +66,7 @@ const AddProduct = () => {
           {formData._id ? "Edit Product" : "Add Product"}
         </h2>
 
+        {/* product name */}
         <InputComponents
           label="Product Name"
           labelFor="productName"
@@ -81,26 +77,6 @@ const AddProduct = () => {
           }
           placeholder="Enter product name"
         />
-
-        {/* <InputComponents
-            label="Category ID"
-            labelFor="category"
-            type="text"
-            value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value})}
-            placeholder="Enter category"
-          /> */}
-
-        {/* <InputComponents
-            label="Supplier ID"
-            labelFor="supplier"
-            type="text"
-            value={formData.supplier}
-            onChange={(e) =>
-              setFormData({ ...formData, supplier: e.target.value })
-            }
-            placeholder="Enter supplier id"
-          /> */}
 
         {/* Pricing */}
         <div className="grid grid-cols-3 gap-4">

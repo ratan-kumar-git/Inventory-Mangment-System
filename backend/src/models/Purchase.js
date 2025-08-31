@@ -4,9 +4,8 @@ const purchaseSchema = new mongoose.Schema(
   {
     shop: { type: mongoose.Schema.Types.ObjectId, ref: "Shop", required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // who recorded the purchase
-    supplier: { type: mongoose.Schema.Types.ObjectId, ref: "Supplier", required: true },
 
-    invoiceNumber: { type: String, required: true }, // supplier bill no.
+    invoiceNumber: { type: String, required: true },
 
     items: [
       {
@@ -35,6 +34,5 @@ const purchaseSchema = new mongoose.Schema(
 
 // Indexes for fast queries
 purchaseSchema.index({ shop: 1 });
-purchaseSchema.index({ supplier: 1 });
 
 export default mongoose.model("Purchase", purchaseSchema);

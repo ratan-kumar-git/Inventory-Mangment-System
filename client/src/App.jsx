@@ -51,7 +51,7 @@ const App = () => {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="add-product" element={<AddProduct />} />
-              <Route path="users" element={<Users />} />
+              <Route path="staff" element={<Users />} />
             </Route>
           </Route>
 

@@ -22,7 +22,6 @@ export const createProduct = async (req, res) => {
     if (!stock) return res.status(400).json({ message: "Stock is required" });
     if (!unit) return res.status(400).json({ message: "Unit is required" });
 
-    // todo: add category and supplier
     const newProduct = new Product({
       productName,
       buyPrice,

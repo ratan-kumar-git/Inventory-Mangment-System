@@ -8,7 +8,7 @@ const menuItems = [
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { name: "Products", path: "/products", icon: Package },
   { name: "Add Product", path: "/add-product", icon: PackagePlus },
-  { name: "Users", path: "/users", icon: User },
+  { name: "Staff", path: "/staff", icon: User },
 ];
 
 const Sidemenu = ({ onClose }) => {
