@@ -57,7 +57,7 @@ const AddProduct = () => {
     }
   };
   return (
-    <div className="flex-1 w-full ">
+    <div className="flex-1 w-full relative">
       {/* Header */}
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         {formData._id ? "Edit Product" : "Add Product"}
@@ -164,7 +164,7 @@ const AddProduct = () => {
 
         <button
           type="submit"
-          className="py-2 px-4 w-full bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700"
+          className="py-2 px-4 w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white rounded-lg font-semibold"
         >
           {isCreateProduct ? (
             <>

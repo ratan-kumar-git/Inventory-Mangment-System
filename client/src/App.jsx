@@ -45,8 +45,9 @@ const App = () => {
           </Route>
 
           {/* Layout */}
+          <Route index element={<Home />} />
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+            
 
             {/* Protected  */}
             <Route element={<ProtectedRoute />}>

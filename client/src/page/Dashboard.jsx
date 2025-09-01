@@ -14,7 +14,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className="flex-1 w-full bg-gray-50 min-h-screen">
+    <div className="flex-1 w-full relative min-h-screen">
       {/* Header */}
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         Inventory Dashboard

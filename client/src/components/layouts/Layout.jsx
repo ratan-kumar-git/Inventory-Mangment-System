@@ -14,7 +14,10 @@ const Layout = () => {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 p-5 overflow-y-auto overflow-x-auto"><Outlet /></main>
+        <main className="flex-1 p-5 overflow-y-auto overflow-x-auto">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50"></div>
+          <Outlet />
+        </main>
       </div>
     </div>
   );

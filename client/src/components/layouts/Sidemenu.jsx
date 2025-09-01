@@ -28,7 +28,7 @@ const Sidemenu = ({ onClose }) => {
   const { authUser, logout } = useAuthStore();
 
   return (
-    <aside className="w-64 h-[calc(100vh-64.8px)] bg-white border-r border-gray-200 shadow-sm sticky top-[64.8px] z-20">
+    <aside className="w-64 h-[calc(100vh-64.8px)] bg-gradient-to-br from-blue-50 via-white to-indigo-50 border-r border-gray-200 shadow-lg sticky top-[64.8px] z-20">
       <div className="flex flex-col p-4">
         {authUser ? (
           <>

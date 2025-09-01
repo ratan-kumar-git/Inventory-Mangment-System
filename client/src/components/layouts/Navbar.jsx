@@ -1,15 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, Package, X } from "lucide-react";
 import Sidemenu from "./Sidemenu";
 import Profile from "../profile";
-import logo from "../../assets/logo.webp";
 import { useAuthStore } from "../../store/useAuthStore";
 
 const Navbar = () => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   const sideMenuRef = useRef(null);
   const { authUser } = useAuthStore();
+
+  const navItems = [
+    { href: '#features', label: 'Features' },
+    { href: '#how-it-works', label: 'How it Works' },
+    { href: '#testimonials', label: 'Testimonials' },
+    { href: '#pricing', label: 'Pricing' },
+  ];
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -32,8 +38,9 @@ const Navbar = () => {
   }, [openSideMenu]);
 
   return (
-    <nav className="flex items-center justify-between bg-white shadow-sm border-b border-gray-200 py-3 px-6 sticky top-0 z-30">
-      <div className="flex items-center gap-2">
+
+    <nav className="flex items-center justify-between bg-gradient-to-br from-blue-50 via-white to-indigo-50 border-b border-gray-200 shadow-sm py-3 px-6 sticky top-0 z-30">
+      <div className="flex items-center gap-5">
         {/* Mobile Menu Toggle */}
         <button
           className="block lg:hidden text-gray-700"
@@ -47,24 +54,46 @@ const Navbar = () => {
         </button>
 
         {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center justify-center gap-2 no-underline text-xl font-bold px-3 text-gray-800 hover:opacity-85"
-        >
-          <img src={logo} alt="logo" className="w-10 h-10" />
-          IM System
+        <Link to="/" className="flex items-center space-x-2">
+          <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
+            <Package className="w-6 h-6 text-white" />
+          </div>
+          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            InventoryPro
+          </span>
         </Link>
       </div>
+
+      {/* Desktop Navigation */}
+      {!authUser && <nav className="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>}
 
       {authUser ? (
         <Profile />
       ) : (
-        <Link
-          to="/signup"
-          className="no-underline text-base px-3 py-1.5 rounded-lg bg-emerald-500  text-white shadow-sm"
-        >
-          Get Satarted
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link
+            to="/login"
+            className="hidden md:block text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+          >
+            Sign In
+          </Link>
+          <Link
+            to="/signup"
+            className="hidden md:block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+          >
+            Start Free Trial
+          </Link>
+        </div>
       )}
 
       {/* Mobile Sidebar */}

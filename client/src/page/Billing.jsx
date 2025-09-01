@@ -140,7 +140,7 @@ const Billing = () => {
   };
 
   return (
-    <div className="flex-1 w-full min-h-screen bg-gray-50">
+    <div className="flex-1 w-full min-h-screen relative">
       {/* Header */}
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         Billing
@@ -206,7 +206,7 @@ const Billing = () => {
         {/* Add Product Button */}
         <button
           onClick={() => setShowModal(true)}
-          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="mb-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-105 text-white rounded-lg"
         >
           + Add Product
         </button>
@@ -276,7 +276,7 @@ const Billing = () => {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="mt-6 w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700"
+          className="mt-6 w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white rounded-lg font-semibold"
         >
           { isCreateBill ? (
             <>
