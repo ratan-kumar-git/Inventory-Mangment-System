@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Package, X } from "lucide-react";
 import Sidemenu from "./Sidemenu";
-import Profile from "../profile";
+import Profile from "../Profile";
 import { useAuthStore } from "../../store/useAuthStore";
 
 const Navbar = () => {
