@@ -1,6 +1,17 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import { Package, Eye, EyeOff, Mail, Lock, ArrowLeft, Building, MapPin, Phone, User } from 'lucide-react';
+import { Link } from "react-router-dom";
+import {
+  Package,
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  ArrowLeft,
+  Building,
+  MapPin,
+  Phone,
+  User,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/useAuthStore";
 
@@ -48,27 +59,21 @@ const Signup = () => {
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
 
       <div className="relative w-full max-w-lg">
-        {/* Back to Home */}
-        <Link
-          to="/"
-          className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 mb-8 group"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
-          Back to Home
-        </Link>
-
         {/* Signup Card */}
         <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 border border-white/20">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center space-x-2 mb-4">
+            <Link
+              to="/"
+              className="flex items-center justify-center space-x-2 mb-4 hover:opacity-90"
+            >
               <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
                 <Package className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 InventoryPro
               </span>
-            </div>
+            </Link>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Create your account
             </h1>
@@ -92,7 +97,9 @@ const Signup = () => {
                 <input
                   type="text"
                   value={formData.shopName}
-                  onChange={(e) => setFormData({ ...formData, shopName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, shopName: e.target.value })
+                  }
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
                   placeholder="Enter your shop name"
                 />
@@ -113,7 +120,9 @@ const Signup = () => {
                 </div>
                 <textarea
                   value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, address: e.target.value })
+                  }
                   rows={2}
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50 resize-none"
                   placeholder="Enter your shop address"
@@ -135,8 +144,11 @@ const Signup = () => {
                 </div>
                 <input
                   type="tel"
+                  maxLength={10}
                   value={formData.contact}
-                  onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, contact: e.target.value.replace(/\D/g, "") })
+                  }
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
                   placeholder="Enter your contact number"
                 />
@@ -158,7 +170,9 @@ const Signup = () => {
                 <input
                   type="text"
                   value={formData.userName}
-                  onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, userName: e.target.value })
+                  }
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
                   placeholder="Enter your full name"
                 />
@@ -180,7 +194,9 @@ const Signup = () => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
                   placeholder="Enter your email"
                 />
@@ -202,7 +218,9 @@ const Signup = () => {
                 <input
                   type={isShowPassword ? "text" : "password"}
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
                   placeholder="Create a password"
                 />

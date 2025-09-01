@@ -4,7 +4,7 @@ import { ArrowRight, BarChart3, Boxes, LayoutDashboardIcon, Play, TrendingUp } f
 
 const HeroSection = () => {
   return (
-    <section className="relative pt-10 pb-16 lg:pb-24 overflow-hidden">
+    <section id='home' className="relative pt-10 pb-16 lg:pb-24 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50"></div>
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>

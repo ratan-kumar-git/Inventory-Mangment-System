@@ -11,10 +11,10 @@ const Navbar = () => {
   const { authUser } = useAuthStore();
 
   const navItems = [
+    { href: '#', label: 'Home' },
     { href: '#features', label: 'Features' },
     { href: '#how-it-works', label: 'How it Works' },
     { href: '#testimonials', label: 'Testimonials' },
-    { href: '#pricing', label: 'Pricing' },
   ];
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Navigation */}
-      {!authUser && <nav className="hidden md:flex items-center space-x-8">
+      {!authUser && <nav className="hidden lg:flex items-center space-x-8">
         {navItems.map((item) => (
           <a
             key={item.href}
@@ -83,15 +83,9 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           <Link
             to="/login"
-            className="hidden md:block text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+            className="hidden lg:block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
           >
-            Sign In
-          </Link>
-          <Link
-            to="/signup"
-            className="hidden md:block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-          >
-            Start Free Trial
+            Login
           </Link>
         </div>
       )}

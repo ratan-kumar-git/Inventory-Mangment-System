@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Loader, Plus, X } from "lucide-react";
+import { Loader, MapPin, Phone, Plus, User2, X } from "lucide-react";
 import toast from "react-hot-toast";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
+import Input from "../components/inputs/Input";
 import { useProductStore } from "../store/useProductStore";
 import { useBillingStore } from "../store/useBillingStore";
-
 
 const Billing = () => {
   const [search, setSearch] = useState("");
@@ -30,12 +30,6 @@ const Billing = () => {
   const filteredProducts = products.filter((p) =>
     (p.productName || "").toLowerCase().includes(search.toLowerCase())
   );
-
-  const date = new Date().toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 
   // Add product to cart
   const onAddProduct = (product) => {
@@ -117,9 +111,12 @@ const Billing = () => {
   const validateForm = () => {
     if (!formData.customer.cName.trim())
       return toast.error("Customer name is required");
-    if (!formData.customer.cContact) return toast.error("Contact No. is required");
-    if (!formData.customer.cAddress) return toast.error("Customer address is required");
-    if (formData.products == 0) return toast.error("At least one product is required");
+    if (!formData.customer.cContact)
+      return toast.error("Contact No. is required");
+    if (!formData.customer.cAddress)
+      return toast.error("Customer address is required");
+    if (formData.products == 0)
+      return toast.error("At least one product is required");
     return true;
   };
 
@@ -142,59 +139,80 @@ const Billing = () => {
   return (
     <div className="flex-1 w-full min-h-screen relative">
       {/* Header */}
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        Billing
-      </h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">Billing</h1>
       <div className="bg-white rounded-2xl shadow-md p-6 mx-auto">
         {/* Header */}
         <h1 className="text-center text-xl font-bold mb-6">Billing</h1>
 
         {/* Customer Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {/* customer name */}
+          <Input
+            label="Customer Name"
+            labelFor="customerName"
+            icon={User2}
+            type="text"
+            value={formData.customer.cName}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                customer: { ...formData.customer, cName: e.target.value },
+              })
+            }
+            placeholder="Enter product name"
+          />
+          {/* phone no. */}
           <div>
-            <label className="block text-sm font-medium">Customer Name</label>
-            <input
-              type="text"
-              value={formData.customer.cName}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  customer: { ...formData.customer, cName: e.target.value },
-                })
-              }
-              className="w-full mt-1 border rounded-lg px-3 py-2"
-              placeholder="Enter customer name"
-            />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Phone No.
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Phone className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type="tel"
+                maxLength={10}
+                value={formData.customer.cContact}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    customer: {
+                      ...formData.customer,
+                      cContact: e.target.value.replace(/\D/g, ""),
+                    },
+                  })
+                }
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
+                placeholder="Enter phone number"
+              />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium">Phone No.</label>
-            <input
-              type="text"
-              value={formData.customer.cContact}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  customer: { ...formData.customer, cContact: e.target.value },
-                })
-              }
-              className="w-full mt-1 border rounded-lg px-3 py-2"
-              placeholder="Enter phone number"
-            />
-          </div>
+          {/* address */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium">Address</label>
-            <input
-              type="text"
-              value={formData.customer.cAddress}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  customer: { ...formData.customer, cAddress: e.target.value },
-                })
-              }
-              className="w-full mt-1 border rounded-lg px-3 py-2"
-              placeholder="Enter address"
-            />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Address
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MapPin className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                value={formData.customer.cAddress}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    customer: {
+                      ...formData.customer,
+                      cAddress: e.target.value,
+                    },
+                  })
+                }
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
+                placeholder="Enter address"
+              />
+            </div>
           </div>
         </div>
 
@@ -278,13 +296,15 @@ const Billing = () => {
           onClick={handleSubmit}
           className="mt-6 w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white rounded-lg font-semibold"
         >
-          { isCreateBill ? (
+          {isCreateBill ? (
             <>
               <div className="flex items-center justify-center gap-2">
                 <Loader className="animate-spin h-5 w-5" /> Creating bill...
               </div>
             </>
-          ) : "Create Bill"}
+          ) : (
+            "Create Bill"
+          )}
         </button>
       </div>
 

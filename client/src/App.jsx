@@ -17,6 +17,7 @@ import Layout from "./components/layouts/Layout";
 import GuestRoute from "./components/layouts/GuestRoute";
 import Billing from "./page/Billing";
 import BillingHistory from "./page/BillingHistory";
+import Profile from "./page/Profile";
 
 const App = () => {
   const { isCheckingAuth, checkAuth } = useAuthStore();
@@ -57,6 +58,7 @@ const App = () => {
               <Route path="staff" element={<Users />} />
               <Route path="billing" element={<Billing />} />
               <Route path="billing-history" element={<BillingHistory />} />
+              <Route path="profile" element={<Profile />} />
             </Route>
           </Route>
 

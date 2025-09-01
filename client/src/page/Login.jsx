@@ -37,27 +37,18 @@ const Login = () => {
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
 
       <div className="relative w-full max-w-md">
-        {/* Back to Home */}
-        <Link
-          to="/"
-          className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200 mb-8 group"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
-          Back to Home
-        </Link>
-
         {/* Login Card */}
         <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 border border-white/20">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center space-x-2 mb-4">
+            <Link to="/" className="flex items-center justify-center space-x-2 mb-4 hover:opacity-90">
               <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
                 <Package className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 InventoryPro
               </span>
-            </div>
+            </Link>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Welcome back
             </h1>

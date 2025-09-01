@@ -8,6 +8,7 @@ export const useDashboardStore = create((set) => ({
     totalSales: 0,
     todaySales: 0,
     lowStockCount: 0,
+    lowStockItems: [],
   },
   loading: false,
 

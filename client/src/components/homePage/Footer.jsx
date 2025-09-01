@@ -12,7 +12,7 @@ import {
 const Footer = () => {
   const footerLinks = [
     { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Contact Us", href: "#" },
     { name: "About Us", href: "#" },
   ];
 
@@ -47,8 +47,7 @@ const Footer = () => {
               <span className="text-xl font-bold">InventoryPro</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              The most advanced inventory management platform designed to help
-              businesses optimize their operations and grow efficiently.
+              Simplify stock tracking, billing, and sales with a powerful yet simple inventory platform built especially for small retailers.
             </p>
           </div>
 
@@ -59,7 +58,7 @@ const Footer = () => {
             </h3>
             <div className="flex items-center text-gray-400">
               <MailIcon className="w-4 h-4 mr-3" />
-              <span>hello@inventrypro.com</span>
+              <span>krratan80@gmail.com</span>
             </div>
             <div className="flex items-center text-gray-400">
               <Phone className="w-4 h-4 mr-3" />

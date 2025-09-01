@@ -71,11 +71,11 @@ const Profile = () => {
           <button
             onClick={() => {
               setOpen(false);
-              navigate("/setting");
+              navigate("/profile");
             }}
             className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
           >
-            Settings
+            Profile
           </button>
           <button
             onClick={handleLogout}

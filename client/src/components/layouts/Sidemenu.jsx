@@ -15,7 +15,6 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 
 const menuItems = [
-  { name: "Home", path: "/", icon: Home },
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { name: "Products", path: "/products", icon: Package },
   { name: "Add Product", path: "/add-product", icon: PackagePlus },

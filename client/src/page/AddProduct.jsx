@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import InputComponents from "../components/inputs/InputComponents";
-import { useProductStore } from "../store/useProductStore";
-import { Loader } from "lucide-react";
+import {
+  Boxes,
+  IndianRupee,
+  Loader,
+  Package,
+  TrendingDown,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
+import Input from "../components/inputs/Input";
+import { useProductStore } from "../store/useProductStore";
 
 const AddProduct = () => {
   const location = useLocation();
@@ -71,9 +77,10 @@ const AddProduct = () => {
         </h2>
 
         {/* product name */}
-        <InputComponents
+        <Input
           label="Product Name"
           labelFor="productName"
+          icon={Package}
           type="text"
           value={formData.productName}
           onChange={(e) =>
@@ -84,9 +91,10 @@ const AddProduct = () => {
 
         {/* Pricing */}
         <div className="grid grid-cols-3 gap-4">
-          <InputComponents
+          <Input
             label="Buy Price"
             labelFor="buyPrice"
+            icon={IndianRupee}
             type="number"
             value={formData.buyPrice}
             onChange={(e) =>
@@ -94,9 +102,10 @@ const AddProduct = () => {
             }
             placeholder="0"
           />
-          <InputComponents
+          <Input
             label="Sell Price"
             labelFor="sellPrice"
+            icon={IndianRupee}
             type="number"
             value={formData.sellPrice}
             onChange={(e) =>
@@ -104,9 +113,10 @@ const AddProduct = () => {
             }
             placeholder="0"
           />
-          <InputComponents
+          <Input
             label="MRP"
             labelFor="mrp"
+            icon={IndianRupee}
             type="number"
             value={formData.mrp}
             onChange={(e) => setFormData({ ...formData, mrp: e.target.value })}
@@ -116,47 +126,59 @@ const AddProduct = () => {
 
         {/* Stock */}
         <div className="grid grid-cols-3 gap-4">
-          <InputComponents
+          <Input
             label="Stock"
             labelFor="stock"
-            type="number"
+            icon={Boxes}
+            type="text"
             value={formData.stock}
             onChange={(e) =>
-              setFormData({ ...formData, stock: e.target.value })
+              setFormData({
+                ...formData,
+                stock: e.target.value.replace(/\D/g, ""),
+              })
             }
             placeholder="0"
           />
           <div>
             <label
               htmlFor="unit"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 mb-2"
             >
               Unit
             </label>
-            <select
-              id="unit"
-              name="unit"
-              value={formData.unit}
-              onChange={(e) =>
-                setFormData({ ...formData, unit: e.target.value })
-              }
-              className="input-box"
-            >
-              <option value="pcs">pcs</option>
-              <option value="kg">kg</option>
-              <option value="litre">litre</option>
-              <option value="box">box</option>
-              <option value="packet">packet</option>
-            </select>
+            <div className="relative">
+              <select
+                id="unit"
+                name="unit"
+                value={formData.unit}
+                onChange={(e) =>
+                  setFormData({ ...formData, unit: e.target.value })
+                }
+                className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-lg 
+                 focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+                 transition-all duration-200 bg-white/50"
+              >
+                <option value="pcs">pcs</option>
+                <option value="kg">kg</option>
+                <option value="litre">litre</option>
+                <option value="box">box</option>
+                <option value="packet">packet</option>
+              </select>
+            </div>
           </div>
 
-          <InputComponents
+          <Input
             label="Low Stock"
             labelFor="lowStockLimit"
-            type="number"
+            icon={TrendingDown}
+            type="text"
             value={formData.lowStockLimit}
             onChange={(e) =>
-              setFormData({ ...formData, lowStockLimit: e.target.value })
+              setFormData({
+                ...formData,
+                lowStockLimit: e.target.value.replace(/\D/g, ""),
+              })
             }
             placeholder="5"
           />

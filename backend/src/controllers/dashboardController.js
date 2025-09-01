@@ -31,17 +31,25 @@ export const getMonthlyDashboard = async (req, res) => {
     ]);
     const todaySales = todaySalesAgg[0]?.total || 0;
 
-    // 4. Low Stock Items
+    // 4. Low Stock Items count
     const lowStockCount = await Product.countDocuments({
       shop: shopId,
-      $expr: { $lte: ["$stock", "$lowStockLimit"] }
+      $expr: { $lt: ["$stock", "$lowStockLimit"] }
     });
+
+    // 5. Low Stock Items list
+    const lowStockItems = await Product.find({
+      shop: shopId,
+      $expr: { $lt: ["$stock", "$lowStockLimit"] }
+    }).select("productName stock lowStockLimit unit");
 
     res.json({
       totalProducts,
       totalSales,
       todaySales,
       lowStockCount,
+      lowStockItems,
+
     });
   } catch (error) {
     console.error("Error in getDashboardData:", error.message);
