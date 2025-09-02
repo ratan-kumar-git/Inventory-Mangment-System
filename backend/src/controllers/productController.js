@@ -93,6 +93,35 @@ export const updateProduct = async (req, res) => {
   }
 };
 
+export const addStock = async (req, res) => {
+  try {
+    const { stock } = req.body;
+
+    // Ensure stock is a valid positive number
+    if (!stock || isNaN(stock) || stock <= 0) {
+      return res.status(400).json({ message: "Invalid stock quantity" });
+    }
+
+    const product = await Product.findOne({
+      _id: req.params.id,
+      shop: req.shop?._id,
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Add stock 
+    product.stock += Number(stock);
+    await product.save();
+
+    res.status(200).json({ product });
+  } catch (error) {
+    console.error("Error in addStock controller:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findOneAndDelete({

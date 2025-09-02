@@ -6,6 +6,7 @@ export const useProductStore = create((set, get) => ({
   products: [],
   isProductLoading: false,
   isCreateProduct: false,
+  isAddStock: false,
   isProductDelete: false,
 
   createProduct: async (productData) => {
@@ -54,6 +55,27 @@ export const useProductStore = create((set, get) => ({
       toast.error(err.response?.data?.message || "Failed to update product");
     } finally {
       set({ isCreateProduct: false });
+    }
+  },
+
+  addStock: async (formData) => {
+    set({ isAddStock: true });
+    try {
+      const res = await axiosInstance.put(
+        `/api/products/add-stock/${formData._id}`,
+        formData
+      );
+
+      set((state) => ({
+        products: state.products.map((p) =>
+          p._id === formData._id ? res.data : p
+        ),
+      }));
+      toast.success("Add Stock successfully");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to add stock");
+    } finally {
+      set({ isAddStock: false });
     }
   },
 

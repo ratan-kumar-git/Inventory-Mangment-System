@@ -113,7 +113,7 @@ const AddProduct = () => {
             }
             placeholder="0"
           />
-          <div className="col-span-3 md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Input
               label="MRP"
               labelFor="mrp"
@@ -160,7 +160,7 @@ const AddProduct = () => {
             placeholder="5"
           />
 
-          <div className="col-span-3 md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <label
               htmlFor="unit"
               className="block text-sm font-medium text-gray-700 mb-2"
@@ -196,7 +196,8 @@ const AddProduct = () => {
           {isCreateProduct ? (
             <>
               <div className="flex items-center justify-center">
-                <Loader className="animate-spin h-8 w-8" />
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Adding product...
               </div>
             </>
           ) : formData._id ? (

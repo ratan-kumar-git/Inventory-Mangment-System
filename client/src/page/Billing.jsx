@@ -248,7 +248,7 @@ const Billing = () => {
               {formData.products.map((item, i) => (
                 <tr key={item.productId} className="border-b">
                   <td className="py-2 px-3">{i + 1}</td>
-                  <td className="py-2 px-3">{item.productName}</td>
+                  <td className="py-2 px-3 text-nowrap">{item.productName}</td>
                   <td className="py-2 px-3 flex items-center gap-2">
                     <button
                       onClick={() =>
@@ -258,7 +258,7 @@ const Billing = () => {
                     >
                       -
                     </button>
-                    <span>{item.quantity}</span>
+                    <span className="text-nowrap">{item.quantity}</span>
                     <button
                       onClick={() =>
                         updateQty(item.productId, item.quantity + 1)
@@ -268,10 +268,10 @@ const Billing = () => {
                       +
                     </button>
                   </td>
-                  <td className="py-2 px-3">{item.buyPrice}</td>
-                  <td className="py-2 px-3">{item.sellPrice}</td>
-                  <td className="py-2 px-3">{item.unit}</td>
-                  <td className="py-2 px-3">{item.subtotal.toFixed(2)}</td>
+                  <td className="py-2 px-3 text-nowrap">₹{item.buyPrice}</td>
+                  <td className="py-2 px-3 text-nowrap">₹{item.sellPrice}</td>
+                  <td className="py-2 px-3 text-nowrap">{item.unit}</td>
+                  <td className="py-2 px-3 text-nowrap">₹{item.subtotal.toFixed(2)}</td>
                   <td className="py-2 px-3 text-red-500 cursor-pointer">
                     <button onClick={() => removeItem(item.productId)}>
                       ✕
@@ -298,8 +298,9 @@ const Billing = () => {
         >
           {isCreateBill ? (
             <>
-              <div className="flex items-center justify-center gap-2">
-                <Loader className="animate-spin h-5 w-5" /> Creating bill...
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Creating bill...
               </div>
             </>
           ) : (
@@ -310,8 +311,8 @@ const Billing = () => {
 
       {/* Product Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-3xl rounded-2xl shadow-lg p-6 m-5">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-5">
+          <div className="bg-white w-full max-w-3xl rounded-2xl shadow-lg p-5">
             {/* Header */}
             <div className="flex justify-between items-center border-b pb-3">
               <h2 className="text-xl font-semibold text-gray-800">
@@ -356,7 +357,6 @@ const Billing = () => {
                     </th>
                     <th className="px-4 py-2 border text-nowrap">SELL PRICE</th>
                     <th className="px-4 py-2 border text-nowrap">STOCK</th>
-                    <th className="px-4 py-2 border text-nowrap">UNIT</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -371,12 +371,11 @@ const Billing = () => {
                           <Plus className="w-5 h-5" />
                         </button>
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="px-4 py-2 border text-nowrap">
                         {product.productName}
                       </td>
-                      <td className="px-4 py-2 border">{product.sellPrice}</td>
-                      <td className="px-4 py-2 border">{product.stock}</td>
-                      <td className="px-4 py-2 border">{product.unit}</td>
+                      <td className="px-4 py-2 border text-nowrap">₹{product.sellPrice}</td>
+                      <td className="px-4 py-2 border text-nowrap">{product.stock} {product.unit}</td>
                     </tr>
                   ))}
                 </tbody>

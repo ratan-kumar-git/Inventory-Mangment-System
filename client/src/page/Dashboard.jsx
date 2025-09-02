@@ -61,13 +61,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recent Activity + Low Stock Alerts */}
+      {/* Add Stock + Low Stock Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Sales */}
+        {/* Add stock */}
         <AddStock />
 
         {/* Low Stock Alerts */}
-        <div className="bg-white shadow-md rounded-2xl p-6">
+        <div className="bg-white max-h-80 shadow-md rounded-2xl p-6 overflow-y-auto">
           <h2 className="text-lg font-semibold text-gray-700 mb-4">
             Low Stock Alerts
           </h2>

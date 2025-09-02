@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useProductStore } from "../store/useProductStore";
+import toast from "react-hot-toast";
 
 const AddStock = () => {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState("");
-  const { getProduct, products  } = useProductStore()
+  const { getProduct, products, addStock, isAddStock } = useProductStore();
 
-  // Fetch product list
   useEffect(() => {
-    getProduct()
-  }, []);
+    getProduct();
+  }, [getProduct]);
 
   // Handle stock update
-  const handleAddStock = async (e) => {
+  const handleAddStock = (e) => {
     e.preventDefault();
-    if (!selectedProduct || !quantity) return;
 
-    try {
-      await axios.put(`/api/products/${selectedProduct}/add-stock`, {
-        quantity: Number(quantity),
-      });
+    if (!selectedProduct) return toast.error("Please select a product");
+    if (!quantity || Number(quantity) < 1)
+      return toast.error("Enter a valid stock quantity");
 
-      alert("Stock updated successfully!");
-      setQuantity("");
-      setSelectedProduct("");
-    } catch (error) {
-      console.error("Error updating stock:", error);
-      alert("Failed to update stock");
-    }
+    addStock({
+      _id: selectedProduct,
+      stock: Number(quantity),
+    });
+
+    // Reset after update
+    setSelectedProduct("");
+    setQuantity("");
   };
 
   return (
@@ -64,22 +62,28 @@ const AddStock = () => {
           <input
             type="number"
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setQuantity(e.target.value.replace(/\D/g, ""))}
             className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-lg 
                        focus:ring-2 focus:ring-blue-500 focus:border-transparent 
                        transition-all duration-200 bg-white/50"
             placeholder="Enter quantity"
-            min="1"
           />
         </div>
 
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 
+          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-95 text-white py-2 px-4 rounded-lg hover:bg-blue-700 
                      focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500"
         >
-          Update Stock
+          {isAddStock ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+              Updating Stock...
+            </div>
+          ) : (
+            "Update Stock"
+          )}
         </button>
       </form>
     </div>

@@ -80,10 +80,6 @@ const Profile = () => {
     }
   };
 
-  if (isProfile) {
-    return <ContentLoader message="Profile is loading..." />;
-  }
-
   return (
     <div className="flex-1 w-full relative min-h-screen">
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">Profile</h1>
@@ -91,7 +87,10 @@ const Profile = () => {
         <h2 className="text-xl font-semibold text-gray-800 mb-6">
           Edit Profile & Shop Details
         </h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6" >
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           {/* Shop Name */}
           <Input
             label="Shop Name"
@@ -99,7 +98,9 @@ const Profile = () => {
             icon={Building}
             type="text"
             value={formData.shopName}
-            onChange={(e) => setFormData({ ...formData, shopName: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, shopName: e.target.value })
+            }
             placeholder="Enter your shop name"
           />
 
@@ -273,7 +274,14 @@ const Profile = () => {
               type="submit"
               className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-x-105 text-white rounded-lg hover:bg-blue-700 transition"
             >
-              Save Changes
+              {isProfile ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Saving...
+                </div>
+              ) : (
+                "Save Changes"
+              )}
             </button>
           </div>
         </form>
