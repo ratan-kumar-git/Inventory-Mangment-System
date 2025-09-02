@@ -90,7 +90,7 @@ const AddProduct = () => {
         />
 
         {/* Pricing */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <Input
             label="Buy Price"
             labelFor="buyPrice"
@@ -113,19 +113,23 @@ const AddProduct = () => {
             }
             placeholder="0"
           />
-          <Input
-            label="MRP"
-            labelFor="mrp"
-            icon={IndianRupee}
-            type="number"
-            value={formData.mrp}
-            onChange={(e) => setFormData({ ...formData, mrp: e.target.value })}
-            placeholder="0"
-          />
+          <div className="col-span-3 md:col-span-1">
+            <Input
+              label="MRP"
+              labelFor="mrp"
+              icon={IndianRupee}
+              type="number"
+              value={formData.mrp}
+              onChange={(e) =>
+                setFormData({ ...formData, mrp: e.target.value })
+              }
+              placeholder="0"
+            />
+          </div>
         </div>
 
         {/* Stock */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <Input
             label="Stock"
             labelFor="stock"
@@ -140,7 +144,23 @@ const AddProduct = () => {
             }
             placeholder="0"
           />
-          <div>
+
+          <Input
+            label="Low Stock"
+            labelFor="lowStockLimit"
+            icon={TrendingDown}
+            type="text"
+            value={formData.lowStockLimit}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                lowStockLimit: e.target.value.replace(/\D/g, ""),
+              })
+            }
+            placeholder="5"
+          />
+
+          <div className="col-span-3 md:col-span-1">
             <label
               htmlFor="unit"
               className="block text-sm font-medium text-gray-700 mb-2"
@@ -167,21 +187,6 @@ const AddProduct = () => {
               </select>
             </div>
           </div>
-
-          <Input
-            label="Low Stock"
-            labelFor="lowStockLimit"
-            icon={TrendingDown}
-            type="text"
-            value={formData.lowStockLimit}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                lowStockLimit: e.target.value.replace(/\D/g, ""),
-              })
-            }
-            placeholder="5"
-          />
         </div>
 
         <button

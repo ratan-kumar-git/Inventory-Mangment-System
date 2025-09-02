@@ -69,6 +69,7 @@ export const signupController = async (req, res) => {
           email: newUser.email,
           role: newUser.role,
           shopId: newShop._id,
+          shopName: newShop.shopName,
           address: newShop.address,
           contact: newShop.contact,
         },
@@ -112,6 +113,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         role: user.role,
         shopId: shop._id,
+        shopName: shop.shopName,
         address: shop.address,
         contact: shop.contact,
       },
@@ -129,4 +131,68 @@ export const checkAuthController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
-}
+};
+
+export const getProfileController = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .select("-password")
+      .populate("shop");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (error) {
+    console.error("Error in getProfileController:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const updateProfileController = async (req, res) => {
+  try {
+    const {
+      userName,
+      email,
+      shopName,
+      address,
+      contact,
+      currentPassword,
+      newPassword,
+    } = req.body;
+
+    // find user
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid current password" });
+    }
+
+    const shop = await Shop.findById(user.shop);
+    if (!shop) return res.status(404).json({ message: "Shop not found" });
+
+    // update user
+    if (userName) user.userName = userName;
+    if (email) user.email = email;
+    if (newPassword) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+    }
+    await user.save();
+
+    // update shop
+    if (shopName) shop.shopName = shopName;
+    if (address) shop.address = address;
+    if (contact) shop.contact = contact;
+    await shop.save();
+
+    res.json({
+      _id: user._id,
+      userName: user.userName,
+      email: user.email,
+      shop,
+    });
+  } catch (error) {
+    console.error("Error in updateProfileController:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

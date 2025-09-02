@@ -9,6 +9,7 @@ import {
   Package,
   PackagePlus,
   User,
+  UserCheck2Icon,
   UserPlus,
 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
@@ -20,6 +21,7 @@ const menuItems = [
   { name: "Add Product", path: "/add-product", icon: PackagePlus },
   { name: "Billing", path: "/billing", icon: CreditCard },
   { name: "Billing History", path: "/billing-history", icon: History },
+  { name: "Profile", path: "/profile", icon: UserCheck2Icon },
   { name: "Staff", path: "/staff", icon: User },
 ];
 

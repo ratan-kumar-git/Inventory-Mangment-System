@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProductStore } from "../store/useProductStore";
 import ContentLoader from "../components/layouts/ContentLoader";
-import { Circle, Pencil, Trash2, X } from "lucide-react";
+import { Circle, IndianRupee, Pencil, Trash2, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Products = () => {
@@ -85,7 +85,7 @@ const Products = () => {
           </div>
           <Link
             to="/add-product"
-            className="w-full text-center md:w-auto mt-3 md:mt-0 px-4 py-3 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="w-full text-center md:w-auto mt-3 md:mt-0 px-4 py-3 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white rounded-lg hover:bg-blue-700"
           >
             Add Product
           </Link>
@@ -101,9 +101,8 @@ const Products = () => {
                 <th className="px-4 py-3">Buy Price</th>
                 <th className="px-4 py-3">Sell Price</th>
                 <th className="px-4 py-3">MRP</th>
-                <th className="px-4 py-3">Qty</th>
+                <th className="px-4 py-3">Quantity</th>
                 <th className="px-4 py-3">Min Qty</th>
-                <th className="px-4 py-3">Unit</th>
                 <th className="px-4 py-3">Edit</th>
                 <th className="px-4 py-3">Delete</th>
               </tr>
@@ -117,9 +116,9 @@ const Products = () => {
                   <td className="px-4 py-3 font-medium text-nowrap text-gray-900">
                     {p.productName}
                   </td>
-                  <td className="px-4 py-3">{p.buyPrice}</td>
-                  <td className="px-4 py-3">{p.sellPrice}</td>
-                  <td className="px-4 py-3">{p.mrp}</td>
+                  <td className="px-4 py-3">₹{p.buyPrice}</td>
+                  <td className="px-4 py-3">₹{p.sellPrice}</td>
+                  <td className="px-4 py-3">₹{p.mrp}</td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2 items-center">
                       <Circle
@@ -129,11 +128,10 @@ const Products = () => {
                             : "bg-red-500 text-red-500"
                         }`}
                       />
-                      {p.stock}
+                      {p.stock} {p.unit}
                     </div>
                   </td>
-                  <td className="px-4 py-3">{p.lowStockLimit}</td>
-                  <td className="px-4 py-3">{p.unit}</td>
+                  <td className="px-4 py-3">{p.lowStockLimit} {p.unit}</td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => handleClick(p)}
@@ -178,13 +176,6 @@ const Products = () => {
                   {p.productName}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <Circle
-                    className={`h-4 w-4 rounded-full ${
-                      p.stock >= p.lowStockLimit
-                        ? "bg-green-500 text-green-500"
-                        : "bg-red-500 text-red-500"
-                    }`}
-                  />
                   {/* edit button */}
                   <button
                     onClick={() => handleClick(p)}
@@ -206,24 +197,28 @@ const Products = () => {
               </div>
               <div className="mt-2 grid grid-cols-2 gap-y-2 text-sm text-gray-600">
                 <p>
-                  <span className="font-medium">Buy:</span> {p.buyPrice}
+                  <span className="font-medium">Buy:</span> ₹{p.buyPrice}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="font-medium">Indicator:</span> <Circle
+                    className={`h-3 w-3 rounded-full ${
+                      p.stock >= p.lowStockLimit
+                        ? "bg-green-500 text-green-500"
+                        : "bg-red-500 text-red-500"
+                    }`}
+                  />
                 </p>
                 <p>
-                  <span className="font-medium">Unit:</span> {p.unit}
+                  <span className="font-medium">Sell:</span> ₹{p.sellPrice}
                 </p>
                 <p>
-                  <span className="font-medium">Sell:</span> {p.sellPrice}
+                  <span className="font-medium">Qty:</span> {p.stock} {p.unit}
                 </p>
                 <p>
-                  <span className="font-medium">Qty:</span>
-                  {p.stock}
+                  <span className="font-medium">MRP:</span> ₹{p.mrp}
                 </p>
                 <p>
-                  <span className="font-medium">MRP:</span> {p.mrp}
-                </p>
-                <p>
-                  <span className="font-medium">Min Qty:</span>{" "}
-                  {p.lowStockLimit}
+                  <span className="font-medium">Min Qty:</span> {p.lowStockLimit} {p.unit}
                 </p>
               </div>
             </div>
