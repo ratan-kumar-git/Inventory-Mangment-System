@@ -11,7 +11,6 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
-import ContentLoader from "../components/layouts/ContentLoader";
 import Input from "../components/inputs/Input";
 
 const Profile = () => {
@@ -27,6 +26,7 @@ const Profile = () => {
     currentPassword: "",
     newPassword: "",
   });
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
     getProfile();
@@ -91,64 +91,68 @@ const Profile = () => {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {/* Shop Name */}
-          <Input
-            label="Shop Name"
-            labelFor="shopName"
-            icon={Building}
-            type="text"
-            value={formData.shopName}
-            onChange={(e) =>
-              setFormData({ ...formData, shopName: e.target.value })
-            }
-            placeholder="Enter your shop name"
-          />
-
-          {/* Contact */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Contact No.
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Phone className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="tel"
-                maxLength={10}
-                value={formData.contact}
+          {authUser.role === "admin" && (
+            <>
+              {/* Shop Name */}
+              <Input
+                label="Shop Name"
+                labelFor="shopName"
+                icon={Building}
+                type="text"
+                value={formData.shopName}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    contact: e.target.value.replace(/\D/g, ""),
-                  })
+                  setFormData({ ...formData, shopName: e.target.value })
                 }
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
-                placeholder="Enter your contact number"
+                placeholder="Enter your shop name"
               />
-            </div>
-          </div>
 
-          {/* Shop Address */}
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Shop Address
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none">
-                <MapPin className="h-5 w-5 text-gray-400" />
+              {/* Contact */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Contact No.
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Phone className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="tel"
+                    maxLength={10}
+                    value={formData.contact}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        contact: e.target.value.replace(/\D/g, ""),
+                      })
+                    }
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
+                    placeholder="Enter your contact number"
+                  />
+                </div>
               </div>
-              <textarea
-                value={formData.address}
-                onChange={(e) =>
-                  setFormData({ ...formData, address: e.target.value })
-                }
-                rows={2}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50 resize-none"
-                placeholder="Enter your shop address"
-              />
-            </div>
-          </div>
+
+              {/* Shop Address */}
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Shop Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none">
+                    <MapPin className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <textarea
+                    value={formData.address}
+                    onChange={(e) =>
+                      setFormData({ ...formData, address: e.target.value })
+                    }
+                    rows={2}
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50 resize-none"
+                    placeholder="Enter your shop address"
+                  />
+                </div>
+              </div>
+            </>
+          )}
 
           {/* User Section */}
           <Input

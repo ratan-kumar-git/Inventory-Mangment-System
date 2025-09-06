@@ -15,18 +15,30 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 
-const menuItems = [
-  { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-  { name: "Products", path: "/products", icon: Package },
-  { name: "Add Product", path: "/add-product", icon: PackagePlus },
-  { name: "Billing", path: "/billing", icon: CreditCard },
-  { name: "Billing History", path: "/billing-history", icon: History },
-  { name: "Profile", path: "/profile", icon: UserCheck2Icon },
-  { name: "Staff", path: "/staff", icon: User },
-];
-
 const Sidemenu = ({ onClose }) => {
   const { authUser, logout } = useAuthStore();
+
+  let menuItems = [];
+
+  if (authUser?.role === "admin") {
+    menuItems = [
+      { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      { name: "Products", path: "/products", icon: Package },
+      { name: "Add Product", path: "/add-product", icon: PackagePlus },
+      { name: "Billing", path: "/billing", icon: CreditCard },
+      { name: "Billing History", path: "/billing-history", icon: History },
+      { name: "Profile", path: "/profile", icon: UserCheck2Icon },
+      { name: "Staff", path: "/staff", icon: User },
+    ];
+  } else {
+    menuItems = [
+      { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      { name: "Products", path: "/products", icon: Package },
+      { name: "Billing", path: "/billing", icon: CreditCard },
+      { name: "Billing History", path: "/billing-history", icon: History },
+      { name: "Profile", path: "/profile", icon: UserCheck2Icon },
+    ];
+  }
 
   return (
     <aside className="w-64 h-[calc(100vh-64.8px)] bg-gradient-to-br from-blue-50 via-white to-indigo-50 border-r border-gray-200 shadow-lg sticky top-[64.8px] z-20">
@@ -52,10 +64,12 @@ const Sidemenu = ({ onClose }) => {
               </NavLink>
             ))}
 
-            <button onClick={() => logout()} className="w-full flex items-center gap-3 text-base font-semibold py-3 px-5 mb-4 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100">
+            <button
+              onClick={() => logout()}
+              className="w-full flex items-center gap-3 text-base font-semibold py-3 px-5 mb-4 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
+            >
               <LogOut className="w-5 h-5" />
               Logout
-
             </button>
           </>
         ) : (

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useProductStore } from "../store/useProductStore";
 import ContentLoader from "../components/layouts/ContentLoader";
-import { Circle, IndianRupee, Pencil, Trash2, X } from "lucide-react";
+import { Circle, Pencil, Trash2, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -17,6 +18,7 @@ const Products = () => {
     products,
     deleteProduct,
   } = useProductStore();
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
     getProduct();
@@ -60,9 +62,7 @@ const Products = () => {
   return (
     <div className="flex-1 w-full relative min-h-screen">
       {/* Header */}
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        Products
-      </h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">Products</h1>
       <div className="bg-white shadow-md rounded-lg overflow-auto">
         {/* Search + Actions */}
         <div className="flex flex-col md:flex-row items-center justify-between p-4">
@@ -83,12 +83,14 @@ const Products = () => {
               </button>
             )}
           </div>
-          <Link
-            to="/add-product"
-            className="w-full text-center md:w-auto mt-3 md:mt-0 px-4 py-3 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white rounded-lg hover:bg-blue-700"
-          >
-            Add Product
-          </Link>
+          {authUser.role === "admin" && (
+            <Link
+              to="/add-product"
+              className="w-full text-center md:w-auto mt-3 md:mt-0 px-4 py-3 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white rounded-lg hover:bg-blue-700"
+            >
+              Add Product
+            </Link>
+          )}
         </div>
 
         {/* Table for md+ screens */}
@@ -103,8 +105,12 @@ const Products = () => {
                 <th className="px-4 py-3">MRP</th>
                 <th className="px-4 py-3">Quantity</th>
                 <th className="px-4 py-3">Min Qty</th>
-                <th className="px-4 py-3">Edit</th>
-                <th className="px-4 py-3">Delete</th>
+                {authUser.role === "admin" && (
+                  <>
+                    <th className="px-4 py-3">Edit</th>
+                    <th className="px-4 py-3">Delete</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -131,26 +137,34 @@ const Products = () => {
                       {p.stock} {p.unit}
                     </div>
                   </td>
-                  <td className="px-4 py-3">{p.lowStockLimit} {p.unit}</td>
                   <td className="px-4 py-3">
-                    <button
-                      onClick={() => handleClick(p)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
+                    {p.lowStockLimit} {p.unit}
                   </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => openDeleteModal(p)}
-                      disabled={isProductDelete}
-                      className={`p-2 text-red-600 rounded-lg hover:bg-red-50 ${
-                        isProductDelete ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </td>
+                  {authUser.role === "admin" && (
+                    <>
+                      <td className="px-4 py-3">
+                        <button
+                          onClick={() => handleClick(p)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </button>
+                      </td>
+                      <td className="px-4 py-3">
+                        <button
+                          onClick={() => openDeleteModal(p)}
+                          disabled={isProductDelete}
+                          className={`p-2 text-red-600 rounded-lg hover:bg-red-50 ${
+                            isProductDelete
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </>
+                  )}
                 </tr>
               ))}
               {filteredProducts.length === 0 && (
@@ -175,32 +189,35 @@ const Products = () => {
                 <h3 className="flex gap-2 items-center text-lg font-semibold text-gray-800">
                   {p.productName}
                 </h3>
-                <div className="flex items-center gap-2">
-                  {/* edit button */}
-                  <button
-                    onClick={() => handleClick(p)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </button>
-                  {/* delete button */}
-                  <button
-                    onClick={() => openDeleteModal(p)}
-                    disabled={isProductDelete}
-                    className={`p-2 text-red-600 rounded-lg hover:bg-red-50 ${
-                      isProductDelete ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                {authUser.role === "admin" && (
+                  <div className="flex items-center gap-2">
+                    {/* edit button */}
+                    <button
+                      onClick={() => handleClick(p)}
+                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    {/* delete button */}
+                    <button
+                      onClick={() => openDeleteModal(p)}
+                      disabled={isProductDelete}
+                      className={`p-2 text-red-600 rounded-lg hover:bg-red-50 ${
+                        isProductDelete ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="mt-2 grid grid-cols-2 gap-y-2 text-sm text-gray-600">
                 <p>
                   <span className="font-medium">Buy:</span> ₹{p.buyPrice}
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="font-medium">Indicator:</span> <Circle
+                  <span className="font-medium">Indicator:</span>{" "}
+                  <Circle
                     className={`h-3 w-3 rounded-full ${
                       p.stock >= p.lowStockLimit
                         ? "bg-green-500 text-green-500"
@@ -218,7 +235,8 @@ const Products = () => {
                   <span className="font-medium">MRP:</span> ₹{p.mrp}
                 </p>
                 <p>
-                  <span className="font-medium">Min Qty:</span> {p.lowStockLimit} {p.unit}
+                  <span className="font-medium">Min Qty:</span>{" "}
+                  {p.lowStockLimit} {p.unit}
                 </p>
               </div>
             </div>

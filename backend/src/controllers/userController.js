@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
 export const createUser = async (req, res) => {
-  const { userName, email, password, role } = req.body;
+  const { userName, email, password } = req.body;
   try {
     // required field checks
     if (!userName)
@@ -13,8 +13,6 @@ export const createUser = async (req, res) => {
         .status(400)
         .json({ message: "Password must be at least 6 characters" });
     }
-    if (!role)
-      return res.status(400).json({ message: "User role is required" });
 
     // check staff/admin exist
     const user = await User.findOne({ email });
@@ -29,7 +27,7 @@ export const createUser = async (req, res) => {
       userName,
       email,
       password: hashedPassword,
-      role,
+      role: "staff",
       shop: req.shop._id,
     });
 
